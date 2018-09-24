@@ -1,32 +1,33 @@
 const User = require('../models/user.model');
 
 module.exports = {
+
   login: async (ctx) => {
+  let insert = {}
     if(ctx.params.type === 'google') {
-      if (!ctx.request.body.googleId) {
+      if (!ctx.request.body.profileObj.googleId) {
         ctx.status = 401
         ctx.body = 'A google id is required in login type google'
       } else {
-        ctx.insert = {
-          id: ctx.request.body.googleId,
-          userName: ctx.request.body.name,
-          email: ctx.request.body.email,
-          photo: ctx.request.body.imgUrl
+        insert = {
+          id: ctx.request.body.profileObj.googleId,
+          userName: ctx.request.body.profileObj.name,
+          email: ctx.request.body.profileObj.email,
+          photo: ctx.request.body.profileObj.imageUrl
         }
       }
     } else {
       ctx.status = 404
       ctx.body = 'A type is required.'
     }
-
-    const exist = await User.find({id: ctx.request.body.id})
+    const exist = await User.find({id: ctx.request.body.profileObj.googleId})
     if(exist.length) {
       ctx.body = exist[0]
       ctx.status = 200
     } else {
-      const newUser = new User(ctx.insert)
+      const newUser = new User(insert)
       const saved = await newUser.save()
-        .catch(() => false)
+        .catch((err) => console.log(err))
       if (!saved) {
         ctx.status = 401
         ctx.body = 'All fields are required on sign up'
@@ -35,7 +36,5 @@ module.exports = {
         ctx.status = 201
       }
     }
-
-    console.log(exist)
   }
 }
