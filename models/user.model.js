@@ -19,7 +19,7 @@ const bookSchema = new mongoose.Schema({
   },
   reviews: {
     type: Number,
-    required: true
+    // required: true
   }
 })
 
