@@ -10,5 +10,6 @@ router
     return
   })
   .post('/login/:type', userController.login)
+  .post('/library/:id', userController.addBookToLibrary)
 
 module.exports = router

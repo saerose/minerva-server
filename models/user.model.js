@@ -2,19 +2,24 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
   title: {
-    type: String
+    type: String,
+    required: true
   },
   author: {
-    type: String
+    type: String,
+    required: true
   },
   bookCover: {
-    type: String
+    type: String,
+    required: true
   },
   genre: {
-    type: String
+    type: String,
+    required: true
   },
   reviews: {
-    type: Number
+    type: Number,
+    required: true
   }
 })
 
@@ -45,4 +50,5 @@ const userSchema = new mongoose.Schema({
   }
 }, {  collection: 'users' });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports.User = mongoose.model('Users', userSchema);
+module.exports.Book = mongoose.model('Books', bookSchema);
