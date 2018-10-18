@@ -19,3 +19,8 @@
 - Google Books API
 - Mongo DB
 
+### Next steps
+
+------
+
+Please feel free to follow us on [Minerva Books](https://github.com/Minerva-Books)
